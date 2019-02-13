@@ -1,12 +1,25 @@
 {
 	"name": "@nicksheffield/formable",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "A simple React HOC for merging fetched data with user changes. Perfect for edit forms.",
 	"main": "index.js",
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
-	"author": "",
+	"homepage": "https://github.com/nicksheffield/formable",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/nicksheffield/formable.git"
+	},
+	"bugs": {
+		"url": "https://github.com/nicksheffield/formable/issues",
+		"email": "numbereft@gmail.com"
+	},
+	"author": {
+		"name": "Nick Sheffield",
+		"email": "numbereft@gmail.com",
+		"url": "http://nicksheffield.me/"
+	},
 	"license": "ISC"
 }
