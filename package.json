@@ -1,0 +1,12 @@
+{
+	"name": "@nicksheffield/formable",
+	"version": "0.0.1",
+	"description": "A simple React HOC for merging fetched data with user changes. Perfect for edit forms.",
+	"main": "index.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC"
+}
