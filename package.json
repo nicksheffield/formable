@@ -1,6 +1,6 @@
 {
 	"name": "@nicksheffield/formable",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"description": "A simple React HOC for merging fetched data with user changes. Perfect for edit forms.",
 	"main": "index.js",
 	"scripts": {
@@ -20,6 +20,9 @@
 		"name": "Nick Sheffield",
 		"email": "numbereft@gmail.com",
 		"url": "http://nicksheffield.me/"
+	},
+	"peerDependencies": {
+		"react": "^16.8.0"
 	},
 	"license": "ISC"
 }
