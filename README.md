@@ -6,26 +6,30 @@ A simple React HOC for merging fetched data with user changes. Perfect for edit 
 
 ### Example
 
+I've included a simple usage below, with examples of text inputs, checkboxes and radios
+
 ```
 class App extends Component {
 	state = {
-		data: {},
+		data: null,
 		formData: null,
-		changes: null
+		changes: null, // you don't need this normally, it's just for displaying below
 	}
 
-	async componentDidMount() {
-
-		// let's just pretend this is a fetch and we got a result
+	componentDidMount() {
+		// let's pretend we're doing a fetch to get our data here
 		setTimeout(() => {
 			this.setState({
 				data: {
-					firstname: 'bob',
-					lastname: 'smith',
-					email: 'bob@example.com'
-				}
+					id: '1',
+					firstname: 'Bob',
+					lastname: 'Smith',
+					email: 'bob@example.com',
+					newsletter: true,
+					color: 'blue',
+				},
 			})
-		}, 1000)
+		}, 2000)
 	}
 
 	render() {
@@ -33,16 +37,29 @@ class App extends Component {
 			<div className="App container">
 				<h1>Yo</h1>
 
-				<MyForm data={this.state.data} onUpdate={(formData, changes) => this.setState({ formData, changes })} />
+				<MyForm
+					data={this.state.data}
+					onUpdate={(formData, changes) =>
+						this.setState({ formData, changes })
+					}
+				/>
 
-				<h2>Original Data</h2>
-				<pre>{JSON.stringify(this.state.data, null, 4)}</pre>
+				<div style={{ display: 'flex', marginTop: '2em' }}>
+					<div style={{ flex: 1 }}>
+						<h2>data</h2>
+						<pre>{JSON.stringify(this.state.data, null, 4)}</pre>
+					</div>
 
-				<h2>Changes</h2>
-				<pre>{JSON.stringify(this.state.changes, null, 4)}</pre>
+					<div style={{ flex: 1 }}>
+						<h2>changes</h2>
+						<pre>{JSON.stringify(this.state.changes, null, 4)}</pre>
+					</div>
 
-				<h2>Final Result</h2>
-				<pre>{JSON.stringify(this.state.formData, null, 4)}</pre>
+					<div style={{ flex: 1 }}>
+						<h2>result</h2>
+						<pre>{JSON.stringify(this.state.formData, null, 4)}</pre>
+					</div>
+				</div>
 			</div>
 		)
 	}
@@ -82,6 +99,54 @@ const MyForm = Formable(({ get, set }) => (
 				className="form-control"
 			/>
 		</div>
+
+		<div className="form-group">
+			<label>
+				Newsletter{' '}
+				<input
+					type="checkbox"
+					checked={get('newsletter', false)}
+					onChange={e => set('newsletter', e.target.checked)}
+				/>
+			</label>
+		</div>
+
+		<div className="form-group">
+			<label>Color</label>
+			<div style={{ display: 'flex', flexDirection: 'column' }}>
+				<label>
+					<input
+						type="radio"
+						value="red"
+						checked={get('color') === 'red'}
+						onChange={e => set('color', e.target.value)}
+					/>{' '}
+					Red
+				</label>
+				<label>
+					<input
+						type="radio"
+						value="blue"
+						checked={get('color') === 'blue'}
+						onChange={e => set('color', e.target.value)}
+					/>{' '}
+					Blue
+				</label>
+				<label>
+					<input
+						type="radio"
+						value="green"
+						checked={get('color') === 'green'}
+						onChange={e => set('color', e.target.value)}
+					/>{' '}
+					Green
+				</label>
+			</div>
+		</div>
 	</form>
 ))
 ```
+
+### Todo
+
+- Add tests
