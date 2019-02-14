@@ -11,6 +11,15 @@ const Formable = FormComponent => {
 			changes: {}
 		}
 
+		get = (key, defaultValue = '') => {
+			if (this.state.changes[key] !== undefined)
+				return this.state.changes[key]
+			if (this.props.data && this.props.data[key] !== undefined)
+				return this.props.data[key]
+
+			return defaultValue
+		}
+
 		set = (key, value) => {
 			this.setState(
 				{ changes: { ...this.state.changes, [key]: value } },
@@ -23,15 +32,6 @@ const Formable = FormComponent => {
 				{ ...this.props.data, ...this.state.changes },
 				this.state.changes
 			)
-		}
-
-		get = (key, defaultValue = '') => {
-			if (this.state.changes[key] !== undefined)
-				return this.state.changes[key]
-			if (this.props.data && this.props.data[key] !== undefined)
-				return this.props.data[key]
-
-			return defaultValue
 		}
 
 		componentDidUpdate(prevProps) {
