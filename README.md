@@ -21,4 +21,5 @@ To see how to use the HOC or the hook, see the examples folder.
 
 ### Todo
 
--   Add tests
+- Add tests
+- Explain API in readme

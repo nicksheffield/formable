@@ -1,20 +1,33 @@
-import { useState } from 'react'
+import { useReducer, useCallback, useMemo } from 'react'
+
+const initialState = {}
+
+const reducer = (state, { type, key, val }) => {
+	switch (type) {
+		case 'set':
+			return { ...state, [key]: val }
+		default:
+			throw new Error(`Unexpected action type: '${type}'`)
+	}
+}
 
 const useFormable = data => {
-	const [changes, setChanges] = useState({})
+	const [state, dispatch] = useReducer(reducer, initialState)
 
-	const get = (key, defaultValue = '') =>
-		changes[key] !== undefined
-			? changes[key]
-			: data && data[key] !== undefined
-			? data[key]
-			: defaultValue
+	const get = useCallback(
+		(key, defaultValue = '') => {
+			if (state[key] !== undefined) return state[key]
+			if (data && data[key] !== undefined) return data[key]
+			return defaultValue
+		},
+		[state, data]
+	)
 
-	const set = (key, value) => setChanges({ ...changes, [key]: value })
+	const set = useCallback((key, val) => dispatch({ type: 'set', key, val }), [])
 
-	const merged = { ...data, ...changes }
+	const merged = useMemo(() => ({ ...data, ...state }), [data, state])
 
-	return [get, set, merged, changes]
+	return [get, set, merged, state]
 }
 
 export default useFormable
