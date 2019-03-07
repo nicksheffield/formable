@@ -1,6 +1,6 @@
 # @nicksheffield/formable
 
-A simple React HOC or hook for merging fetched data with user changes. Perfect for edit forms.
+A simple React hook for merging fetched data with user changes. Perfect for edit forms.
 
 ---
 
@@ -13,11 +13,10 @@ npm i -S @nicksheffield/formable
 ### Usage
 
 ```
-import Formable from '@nicksheffield/formable'
-import useFormable from '@nicksheffield/formable/hook'
+import useFormable from '@nicksheffield/formable'
 ```
 
-To see how to use the HOC or the hook, see the examples folder.
+To see how to use the hook, see the examples folder.
 
 ### Todo
 
