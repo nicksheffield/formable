@@ -30,6 +30,4 @@ const useFormable = data => {
 	return [get, set, merged, state]
 }
 
-module.exports = {
-	default: useFormable,
-}
+module.exports = useFormable
