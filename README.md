@@ -43,7 +43,7 @@ const MyComponent = () => {
 
 #### `useFormable(data)`
 
-The `data` value passed into the hook represents the original data. This may change later, such as if an api call resolves.
+The `data` value passed into the hook represents the original data. This is optional, and is allowed to change later, such as if an api call resolves.
 
 #### `get(key, defaultValue = '')`
 
