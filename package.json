@@ -1,6 +1,6 @@
 {
 	"name": "@nicksheffield/formable",
-	"version": "0.3.1",
+	"version": "0.4.0",
 	"description": "A simple React HOC or hook for merging fetched data with user changes. Perfect for edit forms.",
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
