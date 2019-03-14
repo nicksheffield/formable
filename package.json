@@ -1,9 +1,9 @@
 {
 	"name": "@nicksheffield/formable",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "A simple React HOC or hook for merging fetched data with user changes. Perfect for edit forms.",
-	"main": "./dist/useFormable.js",
-	"types": "./dist/useFormable.d.ts",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
 	"scripts": {
 		"test": "jest",
 		"test:watch": "jest --watchAll",
@@ -30,6 +30,7 @@
 	"license": "ISC",
 	"devDependencies": {
 		"@types/jest": "^24.0.11",
+		"@types/react": "^16.8.8",
 		"jest": "^24.5.0",
 		"react": "^16.8.4",
 		"react-dom": "^16.8.4",

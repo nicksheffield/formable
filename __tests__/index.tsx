@@ -1,14 +1,6 @@
-const React = require('react')
-const { render, cleanup, act } = require('react-testing-library')
-const useFormable = require('../index')
-
-type formable = [
-	<T>(field: string, defaultValue?: T) => T,
-	(field: string, value: any) => void,
-	object,
-	object,
-	() => void
-]
+import * as React from 'react'
+import { render, cleanup, act } from 'react-testing-library'
+import useFormable from '../src/index'
 
 const testHook = (hookfn: any) => {
 	const Comp = ({ children, args }: { children: any; args: any[] }) => children(hookfn(...args))
@@ -17,13 +9,12 @@ const testHook = (hookfn: any) => {
 		let output: any = {}
 
 		render(
-			React.createElement(Comp, {
-				args,
-				children: (val: any) => {
+			<Comp args={args}>
+				{(val: any) => {
 					output = Object.assign(output, val)
 					return null
-				}
-			})
+				}}
+			</Comp>
 		)
 
 		return output
@@ -41,14 +32,14 @@ afterEach(cleanup)
 // 4 reset()
 
 test('get()', () => {
-	const hook: formable = testHook(useFormable)()
+	const hook = testHook(useFormable)()
 
 	expect(hook[0]('name')).toBe('')
 	expect(hook[0]('name', 'def')).toBe('def')
 })
 
 test('set()', () => {
-	const hook: formable = testHook(useFormable)()
+	const hook = testHook(useFormable)()
 
 	act(() => hook[1]('name', 'bob'))
 	expect(hook[0]('name')).toBe('bob')
@@ -56,7 +47,7 @@ test('set()', () => {
 })
 
 test('merged, changes', () => {
-	const hook: formable = testHook(useFormable)({
+	const hook = testHook(useFormable)({
 		name: 'Nick',
 		email: 'nick@example.com',
 		newsletter: false
@@ -78,7 +69,7 @@ test('merged, changes', () => {
 })
 
 test('reset()', () => {
-	const hook: formable = testHook(useFormable)({
+	const hook = testHook(useFormable)({
 		name: 'Nick',
 		email: 'nick@example.com',
 		newsletter: false

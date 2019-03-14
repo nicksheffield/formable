@@ -1,14 +1,20 @@
-const { useReducer, useCallback, useMemo } = require('react')
+import { useReducer, useCallback, useMemo } from 'react'
 
-interface action {
-	type: string
-	key: string
-	val: any
+interface Hash {
+	[key: string]: any
 }
+
+type formableTuple = [
+	<T>(field: string, defaultValue?: T) => T,
+	(field: string, value: any) => void,
+	Hash,
+	Hash,
+	() => void
+]
 
 const initialState = {}
 
-const reducer = (state: any, { type, key, val }: action): any => {
+const reducer = (state: Hash, { type, key, val }: Hash): Hash => {
 	switch (type) {
 		case 'set':
 			return { ...state, [key]: val }
@@ -19,9 +25,7 @@ const reducer = (state: any, { type, key, val }: action): any => {
 	}
 }
 
-const useFormable = (
-	data: any
-): [<T>(field: string, defaultValue?: T) => T, (field: string, value: any) => void, object, object, () => void] => {
+const useFormable = (data?: Hash): formableTuple => {
 	const [state, dispatch] = useReducer(reducer, initialState)
 
 	const get = useCallback(
@@ -42,4 +46,4 @@ const useFormable = (
 	return [get, set, merged, state, reset]
 }
 
-module.exports = useFormable
+export default useFormable

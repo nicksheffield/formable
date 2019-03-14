@@ -2,10 +2,13 @@
 	"compilerOptions": {
 		"target": "es5",
 		"module": "commonjs",
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
 		"declaration": true,
 		"outDir": "./dist",
 		"rootDir": "./src",
-		"strict": true
+		"strict": true,
+		"jsx": "react"
 	},
 	"exclude": ["__tests__", "node_modules", "examples", "dist"]
 }
