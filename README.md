@@ -27,23 +27,23 @@ import useFormable from '@nicksheffield/formable'
 const MyComponent = () => {
 
 	const [get, set, merged, changes, clear] = useFormable({
-		name: 'bob'
+		name: 'bob',
+		newsletter: false
 	})
 
 	return (
 		<div>
 			<input type="text" value={get('name')} onChange={e => set('name', e.target.value)} />
 			<input type="text" value={get('email')} onChange={e => set('email', e.target.value)} />
+			<input type="checkbox" checked={get('newsletter', false)} onChange={e => set('newsletter', e.target.checked)} />
 		</div>
 	)
 }
 ```
 
-In the above code we see a whole bunch of different values output by the `useFormable` hook.
-
 #### `useFormable(data)`
 
-The `data` value passed into the hook represents the original data. This may change over time, such as if an api call resolves.
+The `data` value passed into the hook represents the original data. This may change later, such as if an api call resolves.
 
 #### `get(key, defaultValue = '')`
 
@@ -55,15 +55,15 @@ This function will set the provided value into the `changes` object.
 
 #### `merged`
 
-This is an object of the `changes` object merged over top of the `data` passed to `useFormable`. This is considered a representation of the whole form data.
+This is an object of the `changes` object merged over top of the `data` passed to `useFormable`. This is considered a representation of the whole form data. You'll need this.
 
 #### `changes`
 
-An object containing user edits.
+An object containing user edits. You don't actually need to see this ever, but it's there if you want to debug or something. Feel free to omit it from the `[]` destructure.
 
 #### `reset()`
 
-This function will reset `changes` back to an empty object, thus wiping user changes.
+This function will reset `changes` back to an empty object, thus wiping user changes. You may not need this, feel free to omit it from the `[]` destructure.
 
 ### Todo
 
