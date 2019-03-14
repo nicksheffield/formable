@@ -20,5 +20,4 @@ To see how to use the hook, see the examples folder.
 
 ### Todo
 
-- Add tests
-- Explain API in readme
+-   Explain API in readme
