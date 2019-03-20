@@ -1,16 +1,16 @@
-import { useReducer, useCallback, useMemo } from 'react'
+import { useReducer, useMemo } from 'react'
 
 interface Hash {
 	[key: string]: any
 }
 
-type formableTuple = [
-	<T>(field: string, defaultValue?: T) => T,
-	(field: string, value: any) => void,
-	Hash,
-	Hash,
-	() => void
-]
+interface Formable {
+	get: <T>(field: string, defaultValue?: T) => T
+	set: (field: string, value: any) => void
+	reset: () => void
+}
+
+type formableTuple = [Formable, Hash, Hash]
 
 const initialState = {}
 
@@ -28,22 +28,19 @@ const reducer = (state: Hash, { type, key, val }: Hash): Hash => {
 const useFormable = (data?: Hash): formableTuple => {
 	const [state, dispatch] = useReducer(reducer, initialState)
 
-	const get = useCallback(
-		(key: string, defaultValue: any = '') => {
+	const merged = useMemo(() => ({ ...data, ...state }), [data, state])
+
+	const formable = {
+		get: (key: string, defaultValue: any = '') => {
 			if (state[key] !== undefined) return state[key]
 			if (data && data[key] !== undefined) return data[key]
 			return defaultValue
 		},
-		[state, data]
-	)
+		set: (key: string, val: any) => dispatch({ type: 'set', key, val }),
+		reset: () => dispatch({ type: 'reset' }),
+	}
 
-	const set = useCallback((key: string, val: any) => dispatch({ type: 'set', key, val }), [])
-
-	const merged = useMemo(() => ({ ...data, ...state }), [data, state])
-
-	const reset = useCallback(() => dispatch({ type: 'reset' }), [data])
-
-	return [get, set, merged, state, reset]
+	return [formable, merged, state]
 }
 
 export default useFormable

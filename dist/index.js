@@ -27,17 +27,21 @@ var reducer = function (state, _a) {
 };
 var useFormable = function (data) {
     var _a = react_1.useReducer(reducer, initialState), state = _a[0], dispatch = _a[1];
-    var get = react_1.useCallback(function (key, defaultValue) {
-        if (defaultValue === void 0) { defaultValue = ''; }
-        if (state[key] !== undefined)
-            return state[key];
-        if (data && data[key] !== undefined)
-            return data[key];
-        return defaultValue;
-    }, [state, data]);
-    var set = react_1.useCallback(function (key, val) { return dispatch({ type: 'set', key: key, val: val }); }, []);
     var merged = react_1.useMemo(function () { return (__assign({}, data, state)); }, [data, state]);
-    var reset = react_1.useCallback(function () { return dispatch({ type: 'reset' }); }, [data]);
-    return [get, set, merged, state, reset];
+    var formable = react_1.useMemo(function () {
+        return {
+            get: function (key, defaultValue) {
+                if (defaultValue === void 0) { defaultValue = ''; }
+                if (state[key] !== undefined)
+                    return state[key];
+                if (data && data[key] !== undefined)
+                    return data[key];
+                return defaultValue;
+            },
+            set: function (key, val) { return dispatch({ type: 'set', key: key, val: val }); },
+            reset: function () { return dispatch({ type: 'reset' }); }
+        };
+    }, [state, data]);
+    return [formable, merged, state];
 };
 exports.default = useFormable;

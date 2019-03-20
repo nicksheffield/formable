@@ -1,5 +1,10 @@
 interface Hash {
     [key: string]: any;
 }
-declare const useFormable: (data?: Hash | undefined) => [<T>(field: string, defaultValue?: T | undefined) => T, (field: string, value: any) => void, Hash, Hash, () => void];
+interface Formable {
+    get: <T>(field: string, defaultValue?: T) => T;
+    set: (field: string, value: any) => void;
+    reset: () => void;
+}
+declare const useFormable: (data?: Hash | undefined) => [Formable, Hash, Hash];
 export default useFormable;

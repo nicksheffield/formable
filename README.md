@@ -6,6 +6,8 @@ A simple React hook for merging fetched data with user changes. Perfect for edit
 
 ### Idea
 
+My form state is a combination of original data and my user changes.
+
 The philosophy of this hook came from my own struggle to find the most acceptable approach to merging "late" api data with form state, in the interest of creating edit forms.
 
 The solution I came up with was to only keep an object containing changes, and merge that with the api data (which may not yet exist).
@@ -67,6 +69,6 @@ This function will reset `changes` back to an empty object, thus wiping user cha
 
 ### Todo
 
--   explain better
--   finalize api
--   deprecate and move to new package @nicksheffield/useFormable
+- explain better
+- finalize api
+- deprecate and move to new package @nicksheffield/useFormable

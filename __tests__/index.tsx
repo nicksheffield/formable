@@ -34,37 +34,37 @@ afterEach(cleanup)
 test('get()', () => {
 	const hook = testHook(useFormable)()
 
-	expect(hook[0]('name')).toBe('')
-	expect(hook[0]('name', 'def')).toBe('def')
+	expect(hook[0].get('name')).toBe('')
+	expect(hook[0].get('name', 'def')).toBe('def')
 })
 
 test('set()', () => {
 	const hook = testHook(useFormable)()
 
-	act(() => hook[1]('name', 'bob'))
-	expect(hook[0]('name')).toBe('bob')
-	expect(hook[0]('name', 'def')).toBe('bob')
+	act(() => hook[0].set('name', 'bob'))
+	expect(hook[0].get('name')).toBe('bob')
+	expect(hook[0].get('name', 'def')).toBe('bob')
 })
 
 test('merged, changes', () => {
 	const hook = testHook(useFormable)({
 		name: 'Nick',
 		email: 'nick@example.com',
-		newsletter: false
+		newsletter: false,
 	})
 
-	act(() => hook[1]('name', 'Jack'))
-	act(() => hook[1]('newsletter', true))
+	act(() => hook[0].set('name', 'Jack'))
+	act(() => hook[0].set('newsletter', true))
 
-	expect(hook[2]).toEqual({
+	expect(hook[1]).toEqual({
 		email: 'nick@example.com',
 		name: 'Jack',
-		newsletter: true
+		newsletter: true,
 	})
 
-	expect(hook[3]).toEqual({
+	expect(hook[2]).toEqual({
 		name: 'Jack',
-		newsletter: true
+		newsletter: true,
 	})
 })
 
@@ -72,19 +72,19 @@ test('reset()', () => {
 	const hook = testHook(useFormable)({
 		name: 'Nick',
 		email: 'nick@example.com',
-		newsletter: false
+		newsletter: false,
 	})
 
-	act(() => hook[1]('name', 'Jack'))
-	act(() => hook[1]('newsletter', true))
+	act(() => hook[0].set('name', 'Jack'))
+	act(() => hook[0].set('newsletter', true))
 
-	act(() => hook[4]())
+	act(() => hook[0].reset())
 
-	expect(hook[2]).toEqual({
+	expect(hook[1]).toEqual({
 		name: 'Nick',
 		email: 'nick@example.com',
-		newsletter: false
+		newsletter: false,
 	})
 
-	expect(hook[3]).toEqual({})
+	expect(hook[2]).toEqual({})
 })
